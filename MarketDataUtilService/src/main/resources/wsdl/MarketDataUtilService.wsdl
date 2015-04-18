@@ -60,7 +60,8 @@
 					<xsd:element name="errtext" type="xsd:string" />
 				</xsd:sequence>
 			</xsd:complexType>
-			<xsd:element name="importMarketFault" type="tns:serviceFaultType" />
+			<xsd:element name="summaryMarketDataFault" type="tns:serviceFaultType" />
+			<xsd:element name="convertMarketDataFault" type="tns:serviceFaultType" />
 			<xsd:element name="downloadFileFault" type="tns:serviceFaultType" />
 		</xsd:schema>
 	</wsdl:types>
@@ -71,7 +72,7 @@
 		<wsdl:part name="parameters" element="tns:summaryMarketDataResponse" />
 	</wsdl:message>
 	<wsdl:message name="summaryMarketFaultMsg">
-		<wsdl:part name="parameters" element="tns:importMarketFault" />
+		<wsdl:part name="parameters" element="tns:summaryMarketDataFault" />
 	</wsdl:message>
 	<wsdl:message name="convertMarketDataRequest">
 		<wsdl:part name="parameters" element="tns:currencyConvertMarketData" />
@@ -80,7 +81,7 @@
 		<wsdl:part name="parameters" element="tns:currencyConvertMarketDataResponse" />
 	</wsdl:message>
 	<wsdl:message name="convertMarketDataFaultMsg">
-		<wsdl:part name="parameters" element="tns:downloadFileFault" />
+		<wsdl:part name="parameters" element="tns:convertMarketDataFault" />
 	</wsdl:message>
 		<wsdl:message name="visualiseMarketDataRequestMsg">
 		<wsdl:part name="parameters" element="tns:downloadFile" />
@@ -95,17 +96,17 @@
 		<wsdl:operation name="summariseMarketData">
 			<wsdl:input message="tns:summariseMarketDataRequestMsg" />
 			<wsdl:output message="tns:summariseMarketDataResponseMsg" />
-			<wsdl:fault name="secfault" message="tns:summaryMarketFaultMsg"></wsdl:fault>
+			<wsdl:fault name="mainFault" message="tns:summaryMarketFaultMsg"></wsdl:fault>
 		</wsdl:operation>
 		<wsdl:operation name="convertMarketData">
 			<wsdl:input message="tns:convertMarketDataRequest" />
 			<wsdl:output message="tns:convertMarketDataResponseMsg" />
-			<wsdl:fault name="eventfault" message="tns:convertMarketDataFaultMsg"></wsdl:fault>
+			<wsdl:fault name="mainFault" message="tns:convertMarketDataFaultMsg"></wsdl:fault>
 		</wsdl:operation>
 		<wsdl:operation name="visualiseMarketData">
 			<wsdl:input message="tns:visualiseMarketDataRequestMsg" />
 			<wsdl:output message="tns:visualiseMarketDataResponseMsg" />
-			<wsdl:fault name="eventfault" message="tns:visualiseMarketDataFaultMsg"></wsdl:fault>
+			<wsdl:fault name="mainFault" message="tns:visualiseMarketDataFaultMsg"></wsdl:fault>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="MarketDataUtilServiceSOAP" type="tns:MarketDataUtilService">
@@ -120,8 +121,8 @@
 			<wsdl:output>
 				<soap:body use="literal" />
 			</wsdl:output>
-			<wsdl:fault name="secfault">
-				<soap:fault name="secfault" use="literal" />
+			<wsdl:fault name="mainFault">
+				<soap:fault name="mainFault" use="literal" />
 			</wsdl:fault>
 		</wsdl:operation>
 		<wsdl:operation name="convertMarketData">
@@ -133,8 +134,8 @@
 			<wsdl:output>
 				<soap:body use="literal" />
 			</wsdl:output>
-			<wsdl:fault name="eventfault">
-				<soap:fault name="eventfault" use="literal" />
+			<wsdl:fault name="mainFault">
+				<soap:fault name="mainFault" use="literal" />
 			</wsdl:fault>
 		</wsdl:operation>
 		<wsdl:operation name="visualiseMarketData">
@@ -146,8 +147,8 @@
 			<wsdl:output>
 				<soap:body use="literal" />
 			</wsdl:output>
-			<wsdl:fault name="eventfault">
-				<soap:fault name="eventfault" use="literal" />
+			<wsdl:fault name="mainFault">
+				<soap:fault name="mainFault" use="literal" />
 			</wsdl:fault>
 		</wsdl:operation>
 	</wsdl:binding>
