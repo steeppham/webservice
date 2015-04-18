@@ -21,7 +21,7 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 		}
 		
 		// get the market data
-		MarketData data = collector.getMarketData();
+		//MarketData data = collector.getMarketData();
 		
 		// generate summary response
 		CurrencyConvertMarketDataResponse response = factory.createCurrencyConvertMarketDataResponse();
@@ -38,20 +38,30 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 		
 		// check if eventId is valid
 		if (!collector.exist()) {
-			throw new SummaryMarketFaultMsg("SUMMARY MARKET FAULT MESSAGE");
+			throw new SummaryMarketFaultMsg("EVENTSETID: " + eventId + " is unknown");
 		}
 
+		
 		// get market data
-		MarketData data = collector.getMarketData();
+		MarketData data = null; 
+		
+		try {
+			data = collector.getMarketData();
+		} catch (Exception e) {
+			throw new SummaryMarketFaultMsg("Failed to load market data for: " + eventId);
+		}
 		
 		// generate summary response
 		SummaryMarketDataResponse response = factory.createSummaryMarketDataResponse();
-		response.setEventSetId(eventId);
-		response.setSec(data.getSec());
-		response.setStartDate(data.getStartDate());
-		response.setEndDate(data.getEndDate());
-		response.setCurrencyCode(data.getCurrencyCode());
-		response.setFileSize(collector.size());
+		
+		if (data != null) {
+			response.setEventSetId(eventId);
+			response.setSec(data.getSec());
+			response.setStartDate(data.getStartDate());
+			response.setEndDate(data.getEndDate());
+			response.setCurrencyCode(data.getCurrencyCode());
+			response.setFileSize(collector.size());
+		}
 		return response;
 	}
 

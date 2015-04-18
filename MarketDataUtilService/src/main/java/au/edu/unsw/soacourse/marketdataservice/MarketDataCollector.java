@@ -29,8 +29,9 @@ public class MarketDataCollector {
 	/**
 	 * Collect the market data given the id
 	 * @return
+	 * @throws Exception 
 	 */
-	public MarketData getMarketData() {
+	public MarketData getMarketData() throws Exception {
 		MarketData data = null;
 		
 		// check if file exist
@@ -41,8 +42,8 @@ public class MarketDataCollector {
 				data = new MarketData(values);
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new Exception("Failed to read file: " + filePath, e);
 			}
 		}
 		
