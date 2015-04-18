@@ -5,20 +5,22 @@
 	targetNamespace="http://marketdataservice.soacourse.unsw.edu.au">
 	<wsdl:types>
 		<xsd:schema targetNamespace="http://marketdataservice.soacourse.unsw.edu.au">
-			<xsd:element name="importMarketDataRequest">
+			<xsd:element name="summaryMarketData">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="sec" nillable="false" type="xsd:string" />
-						<xsd:element name="startDate" nillable="false" type="xsd:string" />
-						<xsd:element name="endDate" nillable="false" type="xsd:string" />
-						<xsd:element name="dataSource" nillable="false" type="xsd:string" />
+						<xsd:element name="eventSetId" nillable="false" type="xsd:string" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="importMarketDataResponse">
+			<xsd:element name="summaryMarketDataResponse">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="returnData" nillable="false" type="xsd:string" />
+						<xsd:element name="eventSetId" nillable="false" type="xsd:string" />
+						<xsd:element name="sec" nillable="false" type="xsd:string" />
+						<xsd:element name="startDate" nillable="false" type="xsd:string" />
+						<xsd:element name="endDate" nillable="false" type="xsd:string" />
+						<xsd:element name="currencyCode" nillable="false" type="xsd:string" />
+						<xsd:element name="fileSize" nillable="false" type="xsd:string" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -46,13 +48,13 @@
 			<xsd:element name="downloadFileFault" type="tns:serviceFaultType" />
 		</xsd:schema>
 	</wsdl:types>
-	<wsdl:message name="importMarketDataRequestMsg">
-		<wsdl:part name="parameters" element="tns:importMarketDataRequest" />
+	<wsdl:message name="summariseMarketDataRequestMsg">
+		<wsdl:part name="parameters" element="tns:summaryMarketData" />
 	</wsdl:message>
-	<wsdl:message name="importMarketDataResponseMsg">
-		<wsdl:part name="parameters" element="tns:importMarketDataResponse" />
+	<wsdl:message name="summariseMarketDataResponseMsg">
+		<wsdl:part name="parameters" element="tns:summaryMarketDataResponse" />
 	</wsdl:message>
-	<wsdl:message name="importMarketFaultMsg">
+	<wsdl:message name="summaryMarketFaultMsg">
 		<wsdl:part name="parameters" element="tns:importMarketFault" />
 	</wsdl:message>
 	<wsdl:message name="downloadFileRequestMsg">
@@ -65,10 +67,10 @@
 		<wsdl:part name="parameters" element="tns:downloadFileFault" />
 	</wsdl:message>
 	<wsdl:portType name="MarketDataUtilService">
-		<wsdl:operation name="importMarketData">
-			<wsdl:input message="tns:importMarketDataRequestMsg" />
-			<wsdl:output message="tns:importMarketDataResponseMsg" />
-			<wsdl:fault name="secfault" message="tns:importMarketFaultMsg"></wsdl:fault>
+		<wsdl:operation name="summariseMarketData">
+			<wsdl:input message="tns:summariseMarketDataRequestMsg" />
+			<wsdl:output message="tns:summariseMarketDataResponseMsg" />
+			<wsdl:fault name="secfault" message="tns:summaryMarketFaultMsg"></wsdl:fault>
 		</wsdl:operation>
 		<wsdl:operation name="downloadFile">
 			<wsdl:input message="tns:downloadFileRequestMsg" />
@@ -79,9 +81,9 @@
 	<wsdl:binding name="MarketDataUtilServiceSOAP" type="tns:MarketDataUtilService">
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
-		<wsdl:operation name="importMarketData">
+		<wsdl:operation name="summariseMarketData">
 			<soap:operation
-				soapAction="http://marketdataservice.soacourse.unsw.edu.au/importMarketData" />
+				soapAction="http://marketdataservice.soacourse.unsw.edu.au/summariseMarketData" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
