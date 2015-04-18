@@ -24,17 +24,33 @@
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="downloadFileRequest">
+			<xsd:element name="currencyConvertMarketData">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="eventSetID" nillable="false" type="xsd:string" />
+						<xsd:element name="targetCurrency" nillable="false" type="xsd:string" />
+						<xsd:element name="targetDate" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="currencyConvertMarketDataResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="eventSetId" nillable="true" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="downloadFile">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="eventSetId" nillable="false" type="xsd:string" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="downloadFileResponse">
 				<xsd:complexType>
 					<xsd:sequence>
-						<xsd:element name="returnData" nillable="true" type="xsd:string" />
+						<xsd:element name="dataURL" nillable="false" type="xsd:string" />
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
@@ -57,13 +73,22 @@
 	<wsdl:message name="summaryMarketFaultMsg">
 		<wsdl:part name="parameters" element="tns:importMarketFault" />
 	</wsdl:message>
-	<wsdl:message name="downloadFileRequestMsg">
-		<wsdl:part name="parameters" element="tns:downloadFileRequest" />
+	<wsdl:message name="convertMarketDataRequest">
+		<wsdl:part name="parameters" element="tns:currencyConvertMarketData" />
 	</wsdl:message>
-	<wsdl:message name="downloadFileResponseMsg">
+	<wsdl:message name="convertMarketDataResponseMsg">
+		<wsdl:part name="parameters" element="tns:currencyConvertMarketDataResponse" />
+	</wsdl:message>
+	<wsdl:message name="convertMarketDataFaultMsg">
+		<wsdl:part name="parameters" element="tns:downloadFileFault" />
+	</wsdl:message>
+		<wsdl:message name="visualiseMarketDataRequestMsg">
+		<wsdl:part name="parameters" element="tns:downloadFile" />
+	</wsdl:message>
+	<wsdl:message name="visualiseMarketDataResponseMsg">
 		<wsdl:part name="parameters" element="tns:downloadFileResponse" />
 	</wsdl:message>
-	<wsdl:message name="downloadFileFaultMsg">
+	<wsdl:message name="visualiseMarketDataFaultMsg">
 		<wsdl:part name="parameters" element="tns:downloadFileFault" />
 	</wsdl:message>
 	<wsdl:portType name="MarketDataUtilService">
@@ -72,10 +97,15 @@
 			<wsdl:output message="tns:summariseMarketDataResponseMsg" />
 			<wsdl:fault name="secfault" message="tns:summaryMarketFaultMsg"></wsdl:fault>
 		</wsdl:operation>
-		<wsdl:operation name="downloadFile">
-			<wsdl:input message="tns:downloadFileRequestMsg" />
-			<wsdl:output message="tns:downloadFileResponseMsg" />
-			<wsdl:fault name="eventfault" message="tns:downloadFileFaultMsg"></wsdl:fault>
+		<wsdl:operation name="convertMarketData">
+			<wsdl:input message="tns:convertMarketDataRequest" />
+			<wsdl:output message="tns:convertMarketDataResponseMsg" />
+			<wsdl:fault name="eventfault" message="tns:convertMarketDataFaultMsg"></wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="visualiseMarketData">
+			<wsdl:input message="tns:visualiseMarketDataRequestMsg" />
+			<wsdl:output message="tns:visualiseMarketDataResponseMsg" />
+			<wsdl:fault name="eventfault" message="tns:visualiseMarketDataFaultMsg"></wsdl:fault>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="MarketDataUtilServiceSOAP" type="tns:MarketDataUtilService">
@@ -94,9 +124,22 @@
 				<soap:fault name="secfault" use="literal" />
 			</wsdl:fault>
 		</wsdl:operation>
-		<wsdl:operation name="downloadFile">
+		<wsdl:operation name="convertMarketData">
 			<soap:operation
-				soapAction="http://marketdataservice.soacourse.unsw.edu.au/downloadFile" />
+				soapAction="http://marketdataservice.soacourse.unsw.edu.au/convertMarketData" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="eventfault">
+				<soap:fault name="eventfault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="visualiseMarketData">
+			<soap:operation
+				soapAction="http://marketdataservice.soacourse.unsw.edu.au/visualiseMarketData" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>
