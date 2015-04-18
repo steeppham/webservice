@@ -13,16 +13,17 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 			throws ConvertMarketDataFaultMsg {
 		
 		String eventId = parameters.getEventSetID();
+		MarketDataCollector collector = new MarketDataCollector(eventId);
 		
 		// check if eventId is valid
-		// TODO remove dummy variable
-		if (!eventId.equals("123")) {
+		if (!collector.exist()) {
 			throw new ConvertMarketDataFaultMsg("CONVERT MARKET FAULT MESSAGE");
 		}
 		
-		// read data from file??
+		// get the market data
+		MarketData data = collector.getMarketData();
 		
-		// unpack file and create response
+		// generate summary response
 		CurrencyConvertMarketDataResponse response = factory.createCurrencyConvertMarketDataResponse();
 		response.setEventSetId("345");
 		return response;
@@ -33,25 +34,24 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 			SummaryMarketData parameters) throws SummaryMarketFaultMsg {
 		
 		String eventId = parameters.getEventSetId();
-
+		MarketDataCollector collector = new MarketDataCollector(eventId);
+		
 		// check if eventId is valid
-		// TODO remove dummy variable
-		if (!eventId.equals("123")) {
+		if (!collector.exist()) {
 			throw new SummaryMarketFaultMsg("SUMMARY MARKET FAULT MESSAGE");
 		}
 
-		// read data from file??
+		// get market data
+		MarketData data = collector.getMarketData();
 		
-		
-		// unpack data
-
+		// generate summary response
 		SummaryMarketDataResponse response = factory.createSummaryMarketDataResponse();
 		response.setEventSetId(eventId);
-		response.setSec("BHP");
-		response.setStartDate("16/02/1999");
-		response.setEndDate("23/05/2001");
-		response.setCurrencyCode("AUD");
-		response.setCurrencyCode("16K");
+		response.setSec(data.getSec());
+		response.setStartDate(data.getStartDate());
+		response.setEndDate(data.getEndDate());
+		response.setCurrencyCode(data.getCurrencyCode());
+		response.setFileSize(collector.size());
 		return response;
 	}
 
