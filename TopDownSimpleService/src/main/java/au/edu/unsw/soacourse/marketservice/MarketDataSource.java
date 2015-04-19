@@ -21,6 +21,7 @@ public class MarketDataSource {
 		
 		try {
 			yahoo = new URL(url);
+			System.out.println("Accessing url: " + url);
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					yahoo.openStream()));
 			
@@ -55,18 +56,15 @@ public class MarketDataSource {
 			in.close();
 			fileWriter.close();
 			
-			// TODO
-			String blah = System.getProperty("catalina.home");
-			String path = "/Library/Tomcat/webapps/ROOT/marketdata/"
-					+ eventSetId + ".csv";
+			String path = ResourceConstants.getLocalResource(eventSetId);
 			System.out.println(path);
 			File source = localFile;
 			File dest = new File(path);
 			try {
 				FileUtils.copyFile(source, dest);
-				// copyDirectory(source,dest);
 			} catch (IOException e) {
 				e.printStackTrace();
+				throw new Exception("Failed to copy resource to public directory", e);
 			}
 			
 		} catch (Exception e) {

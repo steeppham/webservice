@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -15,10 +13,6 @@ import com.opencsv.CSVWriter;
 
 // Handles the retrieval of market data file from the system
 public class MarketDataCollector {
-
-	final String DIRECTORY = "marketdata";
-	final String HOME = "/Library/Tomcat"; //System.getProperty("catalina.home"); // TODO
-	final String FILE_EXT = ".csv";
 	String id;
 	String filePath;
 	
@@ -28,7 +22,7 @@ public class MarketDataCollector {
 	 */
 	public MarketDataCollector(String id) {
 		this.id = id;
-		this.filePath = HOME +"/webapps/ROOT/" + DIRECTORY + "/" + id + FILE_EXT;
+		this.filePath = ResourceConstants.getLocalResource(id);
 	}
 	
 	/**
@@ -45,7 +39,7 @@ public class MarketDataCollector {
 				CSVReader reader = new CSVReader(new FileReader(filePath));
 				List<String[]> values = reader.readAll();
 				data = new MarketData(values);
-				
+				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new Exception("Failed to read file: " + filePath, e);
@@ -62,25 +56,7 @@ public class MarketDataCollector {
 	public String size() {
 		File file = new File(filePath);
 		long size = file.length();
-		// TODO format file size
 		return String.valueOf(size);
-	}
-	
-	/**
-	 * Comma separate a string into a list of values.
-	 * @param line
-	 * @return
-	 */
-	private List<String> commaSeparateValues(String line) {
-		List<String> values = new ArrayList<String>();
-		
-		if (line != null) {
-			String[] splitData = line.split("\\s,\\s*");
-			for (String value : splitData) {
-				values.add(value);
-			}
-		}
-		return values;
 	}
 	
 	/**
@@ -96,14 +72,14 @@ public class MarketDataCollector {
 	 * 
 	 * @param data
 	 */
-	public void write(MarketData data) {
+	public void write(MarketData data) throws Exception {
 		try {
 			CSVWriter writer = new CSVWriter(new FileWriter(filePath), ',', CSVWriter.NO_QUOTE_CHARACTER);
 			writer.writeAll(data.getValues());
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new Exception("Failed to write market data to local");
 		}
 	}
 
@@ -115,10 +91,10 @@ public class MarketDataCollector {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public String writeHtml(String html) throws UnsupportedEncodingException, IOException {
-		String htmlPath = HOME +"/webapps/ROOT/" + DIRECTORY + "/" + id + ".html";
+		String htmlPath = ResourceConstants.getLocalResourceHtml(id);
 		File output = new File(htmlPath);
 		Files.write(output.toPath(), html.getBytes("UTF-8"));
-		return "http://localhost:8080/" + DIRECTORY + "/" + id + ".html";
+		return ResourceConstants.getPublicResourceHtml(id);
 	}
 	
 }

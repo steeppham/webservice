@@ -45,7 +45,7 @@ public class TopDownSimpleServiceImpl implements TopDownSimpleService {
 		Date endDate = Validator.parseDate(endDateText);
 		
 		// generate unique event set id
-		String eventSetId = EventSetIdGenerator.generate(sec, startDateText, endDateText);
+		String eventSetId = EventSetIdGenerator.generate(sec, startDateText, endDateText, "AUD");
 		
 		MarketDataSource dataSource = new MarketDataSource();
 		try {

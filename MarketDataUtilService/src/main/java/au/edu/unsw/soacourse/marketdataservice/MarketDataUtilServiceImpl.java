@@ -12,12 +12,23 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 			CurrencyConvertMarketData parameters)
 			throws ConvertMarketDataFaultMsg {
 		
+		// validate inputs
 		String eventId = parameters.getEventSetID();
 		MarketDataCollector collector = new MarketDataCollector(eventId);
 		
 		// check if eventId is valid
 		if (!collector.exist()) {
 			throw new ConvertMarketDataFaultMsg("EVENTSETID: " + eventId + " is unknown");
+		}
+		
+		String currency = parameters.getTargetCurrency();
+		if (!Validator.validateCurrencyCode(currency)) {
+			throw new ConvertMarketDataFaultMsg("Currency code: " + currency + " is invalid");
+		}
+		
+		String date = parameters.getTargetDate();
+		if (!Validator.validateDate(date)) {
+			throw new ConvertMarketDataFaultMsg("Date: " + date + " is incorrect format");
 		}
 		
 		// get the market data
@@ -27,9 +38,6 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 		} catch (Exception e) {
 			throw new ConvertMarketDataFaultMsg("Failed to load market data for: " + eventId, e);
 		}
-		
-		String currency = parameters.getTargetCurrency();
-		String date = parameters.getTargetDate();
 		
 		CurrencyConverter converter = new CurrencyConverter(data);
 		MarketData convertedData;
@@ -41,9 +49,14 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 		}
 		
 		// generate new id
-		String newId = "test-345";
+		String newId = EventSetIdGenerator.generate(convertedData.getSec(), convertedData.getStartDate(), convertedData.getEndDate(), convertedData.getCurrencyCode());
+		System.out.println("Converted market data new id: " + newId);
 		collector = new MarketDataCollector(newId);
-		collector.write(convertedData);
+		try {
+			collector.write(convertedData);
+		} catch(Exception e) {
+			throw new ConvertMarketDataFaultMsg("Failed to write converted market data: " + eventId, e);
+		}
 		
 		// generate summary response
 		CurrencyConvertMarketDataResponse response = factory.createCurrencyConvertMarketDataResponse();

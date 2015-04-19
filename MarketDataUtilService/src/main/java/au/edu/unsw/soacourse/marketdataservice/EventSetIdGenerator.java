@@ -1,4 +1,4 @@
-package au.edu.unsw.soacourse.marketservice;
+package au.edu.unsw.soacourse.marketdataservice;
 
 /**
  * Generates a unique event set id for a given stock code.

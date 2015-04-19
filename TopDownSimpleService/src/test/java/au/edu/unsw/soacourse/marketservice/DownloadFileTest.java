@@ -11,7 +11,7 @@ public class DownloadFileTest {
 	@Test
 	public void downloadFile() throws Exception {
 		DownloadFileRequest request = factory.createDownloadFileRequest();
-		String id = EventSetIdGenerator.generate("BHP", "01-01-2014", "31-12-2015");
+		String id = EventSetIdGenerator.generate("BHP", "01-01-2014", "31-12-2015", "AUD");
 		request.setEventSetID(id);
 		
 		TopDownSimpleServiceImpl simpleService = new TopDownSimpleServiceImpl();

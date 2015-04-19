@@ -10,9 +10,7 @@ public class MarketDataDownload {
 	}
 	
 	public boolean exist() {
-		// TODO
-		String blah = System.getProperty("catalina.home");
-		File file = new File("/Library/Tomcat/webapps/ROOT/marketdata/" + eventSetId + ".csv");
+		File file = new File(ResourceConstants.getLocalResource(eventSetId));
 		return file.exists();
 	}
 	
@@ -20,7 +18,7 @@ public class MarketDataDownload {
 		// TODO
 		String url = null;
 		if (exist()) {
-			url = "http://localhost:8080/marketdata/" + eventSetId + ".csv";
+			url = ResourceConstants.getPublicResource(eventSetId);
 		}
 		return url;
 	}

@@ -61,8 +61,6 @@ public class MarketData {
 	}
 	
 	private double extractMarketValue(String marketValue) throws Exception {
-		Assert.assertNotNull(marketValue);
-		
 		double value = 0;
 		Pattern pattern = Pattern.compile("[a-zA-Z]+(.*)");
 		Matcher matcher = pattern.matcher(marketValue);

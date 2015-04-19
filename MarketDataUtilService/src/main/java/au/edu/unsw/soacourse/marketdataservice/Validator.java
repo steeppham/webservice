@@ -1,4 +1,4 @@
-package au.edu.unsw.soacourse.marketservice;
+package au.edu.unsw.soacourse.marketdataservice;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Validator {
 
-	public static boolean validateSec(String input) {
+	public static boolean validateCurrencyCode(String input) {
 		return input.length() == 3;
 	}
 	
@@ -16,7 +16,7 @@ public class Validator {
 	}
 	
 	public static Date parseDate(String input) {
-		DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat format = new SimpleDateFormat("yyy-MM-dd");
 		Date date = null;
 		try {
 			date = format.parse(input);

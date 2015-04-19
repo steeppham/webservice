@@ -19,8 +19,7 @@ public class ImportMarketDataTest {
 		TopDownSimpleServiceImpl simpleService = new TopDownSimpleServiceImpl();
 		ImportMarketDataResponse response = simpleService.importMarketData(request);
 		
-		String expectedId = EventSetIdGenerator.generate("BHP", "01-01-2014", "31-12-2015");
+		String expectedId = EventSetIdGenerator.generate("BHP", "01-01-2014", "31-12-2015", "AUD");
 		assertEquals(expectedId, response.getReturnData());
 	}
-
 }
