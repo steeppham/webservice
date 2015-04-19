@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,6 +105,20 @@ public class MarketDataCollector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 
+	 * @param html
+	 * @return
+	 * @throws IOException 
+	 * @throws UnsupportedEncodingException 
+	 */
+	public String writeHtml(String html) throws UnsupportedEncodingException, IOException {
+		String htmlPath = HOME +"/webapps/ROOT/" + DIRECTORY + "/" + id + ".html";
+		File output = new File(htmlPath);
+		Files.write(output.toPath(), html.getBytes("UTF-8"));
+		return "http://localhost:8080/" + DIRECTORY + "/" + id + ".html";
 	}
 	
 }

@@ -90,18 +90,40 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 	@Override
 	public DownloadFileResponse visualiseMarketData(DownloadFile parameters)
 			throws VisualiseMarketDataFaultMsg {
-		String eventId = parameters.getEventSetId();
 
+		String eventId = parameters.getEventSetId();
+		MarketDataCollector collector = new MarketDataCollector(eventId);
+		
 		// check if eventId is valid
-		// TODO remove dummy variable
-		if (!eventId.equals("123")) {
-			throw new VisualiseMarketDataFaultMsg("VISUALISE MARKET FAULT MESSAGE");
+		if (!collector.exist()) {
+			throw new VisualiseMarketDataFaultMsg("EVENTSETID: " + eventId + " is unknown");
+		}
+		
+		// fetch the market data
+		// get market data
+		MarketData data = null;
+
+		try {
+			data = collector.getMarketData();
+		} catch (Exception e) {
+			throw new VisualiseMarketDataFaultMsg(
+					"Failed to load market data for: " + eventId, e);
 		}
 		
 		// generate html from market data
+		String uri = null;
+		try {
+			MarketDataPresentation presentation = new MarketDataPresentation(data);
+			String html = presentation.outputHtml();
+			
+			// write it to file
+			uri = collector.writeHtml(html);
+		} catch (Exception e) {
+			throw new VisualiseMarketDataFaultMsg("Failed to generate html output for: " + eventId, e);
+		}
 		
 		DownloadFileResponse response = factory.createDownloadFileResponse();
-		response.setDataURL("some/url");
+		response.setDataURL(uri);
 		return response;
 	}
 }
