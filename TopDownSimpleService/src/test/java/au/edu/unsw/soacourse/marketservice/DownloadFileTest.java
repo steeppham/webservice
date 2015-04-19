@@ -17,7 +17,7 @@ public class DownloadFileTest {
 		TopDownSimpleServiceImpl simpleService = new TopDownSimpleServiceImpl();
 		DownloadFileResponse response = simpleService.downloadFile(request);
 		
-		assertEquals("http://localhost:8080/marketservice/" + id + ".csv", response.getReturnData());
+		assertEquals("http://localhost:8080/marketdata/" + id + ".csv", response.getReturnData());
 	}
 
 }

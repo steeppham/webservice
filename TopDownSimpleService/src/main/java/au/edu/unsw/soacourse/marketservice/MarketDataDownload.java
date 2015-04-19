@@ -19,7 +19,7 @@ public class MarketDataDownload {
 		// TODO
 		String url = null;
 		if (exist()) {
-			url = "http://localhost:8080/marketservice/" + eventSetId + ".csv";
+			url = "http://localhost:8080/marketdata/" + eventSetId + ".csv";
 		}
 		return url;
 	}
