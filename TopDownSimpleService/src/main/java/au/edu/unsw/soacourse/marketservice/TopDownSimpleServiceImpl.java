@@ -16,6 +16,7 @@ public class TopDownSimpleServiceImpl implements TopDownSimpleService {
 
 	ObjectFactory factory = new ObjectFactory();
 
+	@Override
 	public ImportMarketDataResponse importMarketData(
 			ImportMarketDataRequest parameters) throws ImportMarketFaultMsg {
 
@@ -23,7 +24,7 @@ public class TopDownSimpleServiceImpl implements TopDownSimpleService {
 		
 		if (parameters.getSec().length() != 3) {
 			// assume that we only want a SEC value of length 3
-			String msg = "SEC code should be exactly 3 characters longskugflksnfksj";
+			String msg = "SEC code should be exactly 3 characters longs";
 			String code = "ERR_SEC";
 
 			// TODO: SOAP Fault handling should come here ...
@@ -108,11 +109,11 @@ public class TopDownSimpleServiceImpl implements TopDownSimpleService {
 
 			}
 			
-			eventId = localFile.getName();
+			eventId = EventSetIdGenerator.generate(parameters.getSec(), parameters.getStartDate(), parameters.getEndDate());
 			
 			fileWriter.close();
 		    in.close();
-	        String path = "/Users/rashim/Documents/Tomcat/apache-tomcat-7.0.42/webapps/ROOT/"+localFile.getName();
+	        String path = "/Users/rashim/Documents/Tomcat/apache-tomcat-7.0.42/webapps/ROOT/"+ eventId + ".csv";
 	        System.out.println(path);
 	        File source = localFile;
 	        File dest = new File(path);
@@ -134,6 +135,7 @@ public class TopDownSimpleServiceImpl implements TopDownSimpleService {
 		return res;
 	}
 
+	@Override
 	public DownloadFileResponse downloadFile(DownloadFileRequest parameters)
 			throws DownloadFileFaultMsg {
 
