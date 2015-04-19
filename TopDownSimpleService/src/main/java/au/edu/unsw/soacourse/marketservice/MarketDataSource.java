@@ -56,6 +56,7 @@ public class MarketDataSource {
 			fileWriter.close();
 			
 			// TODO
+			String blah = System.getProperty("catalina.home");
 			String path = "/Library/Tomcat/webapps/ROOT/marketdata/"
 					+ eventSetId + ".csv";
 			System.out.println(path);

@@ -11,6 +11,7 @@ public class MarketDataDownload {
 	
 	public boolean exist() {
 		// TODO
+		String blah = System.getProperty("catalina.home");
 		File file = new File("/Library/Tomcat/webapps/ROOT/marketdata/" + eventSetId + ".csv");
 		return file.exists();
 	}
