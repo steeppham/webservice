@@ -63,24 +63,16 @@ public class TopDownSimpleServiceImpl implements TopDownSimpleService {
 	@Override
 	public DownloadFileResponse downloadFile(DownloadFileRequest parameters)
 			throws DownloadFileFaultMsg {
-
-		if (!parameters.getEventSetID().equals("abc-abc-111")) {
-			// assume that we only know about an eventSetId abc-abc-111
-			String msg = "Unknonw eventSetId was given";
-			String code = "ERR_EVENT";
-
-			// TODO: SOAP Fault handling should come here ...
-			// TODO: create a ServieFaultType 'fault' from ObjectFactory
-			// TODO: prepare 'fault' object: set errorcode and errortext
-			// TODO: throw new DownloadFaultMsg(msg,fault)
-			ServiceFaultType sft = factory.createServiceFaultType();
-			sft.setErrcode(code);
-			sft.setErrtext(msg);
-			DownloadFileFaultMsg dfm = new DownloadFileFaultMsg(msg, sft);
+		String eventSetId = parameters.getEventSetID();
+		
+		MarketDataDownload download = new MarketDataDownload(eventSetId);
+		if (!download.exist()) {
+			throw new DownloadFileFaultMsg("Unknonw eventSetId was given: " + eventSetId);
 		}
-
+		
+		String url = download.getDownloadUrl();
 		DownloadFileResponse res = factory.createDownloadFileResponse();
-		res.returnData = "EventSet Id: " + parameters.eventSetID;
+		res.setReturnData(url);
 		return res;
 	}
 }
