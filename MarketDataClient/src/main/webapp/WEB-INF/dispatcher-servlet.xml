@@ -26,6 +26,11 @@
 		address="http://localhost:8080/TopDownSimpleService/TopDownSimpleService"
 		serviceClass="au.edu.unsw.soacourse.marketservice.TopDownSimpleService">
 	</jaxws:client>
+	
+	<jaxws:client id="data"
+		address="http://localhost:8080/MarketDataUtilService/MarketDataUtilService"
+		serviceClass="au.edu.unsw.soacourse.marketdataservice.MarketDataUtilService">
+	</jaxws:client>
 
 
 </beans>
