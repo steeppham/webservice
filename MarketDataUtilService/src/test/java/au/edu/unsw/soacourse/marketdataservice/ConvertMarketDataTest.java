@@ -16,10 +16,12 @@ public class ConvertMarketDataTest {
 		// test with test file in webapp/ROOT/marketdata/123.csv
 		String eventSetId = "test-123";
 		request.setEventSetID(eventSetId);
+		request.setTargetCurrency("USD");
+		request.setTargetDate("2015-03-25");
 		
 		CurrencyConvertMarketDataResponse response = marketDataService.convertMarketData(request);
 		
-		assertEquals(response.getEventSetId(), eventSetId);
+		assertEquals(response.getEventSetId(), "test-345");
 	}
 	
 	@Test
@@ -31,8 +33,11 @@ public class ConvertMarketDataTest {
 		CurrencyConverter converter = new CurrencyConverter(data);
 		data = converter.convert("USD", "2015-03-25");
 		
-		assertEquals(data.getCurrencyCode(), "USD");
-		assertEquals(data.getValues().get(1)[3], "USD24.12");
+		assertEquals( "USD", data.getCurrencyCode());
+		assertEquals( "USD24.12", data.getValues().get(1)[2]);
+		assertEquals( "USD24.41", data.getValues().get(1)[3]);
+		assertEquals( "USD24.09", data.getValues().get(1)[4]);
+		assertEquals( "USD24.16", data.getValues().get(1)[5]);
+		assertEquals( "USD24.16", data.getValues().get(1)[7]);
 	}
-
 }

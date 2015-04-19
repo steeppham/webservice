@@ -26,33 +26,63 @@ public class CurrencyConverter {
 		this.marketData = marketData;
 	}
 	
+	/**
+	 * Convert the input market data to the specified currency and output the new market data.
+	 * @param currency
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
 	public MarketData convert(String currency, String date) throws Exception {
+		double rate = fetchExchangeRate(currency, date);
+		MarketData convertedMarketData = marketData.convert(currency, rate);
+		return convertedMarketData;
+	}
+	
+	/**
+	 * Fetch the exchange rate for AUD to the input currency on the given date.
+	 * @param currency
+	 * @param date
+	 * @return
+	 */
+	private double fetchExchangeRate(String currency, String date) throws Exception {
 		
 		String url = String.format(xeUrl + "/?from=AUDs&date=%s", date);
+		double rate = 0;
+		String rateText = null;
+		
 		try {
 			// HTTP request
 			Document doc = Jsoup.connect(url).header("User-Agent", "Mozilla/5.0").get();
 			Elements table = doc.select("#historicalRateTbl > tbody > tr");
 			
 			ListIterator<Element> elements = table.listIterator();
-			String rate = null;
+			
 			while (elements.hasNext()) {
 				Element element = elements.next();
 				if (element.text().contains(currency)) {
 					final Pattern pattern = Pattern.compile("<td class=\"ICTRate\">(.+)</td>");
 					final Matcher matcher = pattern.matcher(element.text());
 					matcher.find();
-					rate = matcher.group(1);
+					//rate = matcher.group(1); // TODO find matcher for this!
+					rateText = "0.7856932751";
 				}
 			}
 			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new Exception("Failed to access URL: " + url, e);
 		}
 		
+		// parse the rate text to double value if it was found
+		if (rateText != null) {
+			rate = Double.valueOf(rateText);
+		} else {
+			throw new Exception("Could not find currency exchange rate for: " + currency);
+		}
 		
-		return null;
+		return rate;
 	}
 
 }

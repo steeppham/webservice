@@ -2,11 +2,13 @@ package au.edu.unsw.soacourse.marketdataservice;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
 // Handles the retrieval of market data file from the system
 public class MarketDataCollector {
@@ -85,6 +87,21 @@ public class MarketDataCollector {
 	public boolean exist() {
 		File file = new File(filePath);
 		return file.exists();
+	}
+
+	/**
+	 * 
+	 * @param data
+	 */
+	public void write(MarketData data) {
+		try {
+			CSVWriter writer = new CSVWriter(new FileWriter(filePath), ',', CSVWriter.NO_QUOTE_CHARACTER);
+			writer.writeAll(data.getValues());
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

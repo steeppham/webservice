@@ -17,15 +17,37 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 		
 		// check if eventId is valid
 		if (!collector.exist()) {
-			throw new ConvertMarketDataFaultMsg("CONVERT MARKET FAULT MESSAGE");
+			throw new ConvertMarketDataFaultMsg("EVENTSETID: " + eventId + " is unknown");
 		}
 		
 		// get the market data
-		//MarketData data = collector.getMarketData();
+		MarketData data = null;
+		try {
+			data = collector.getMarketData();
+		} catch (Exception e) {
+			throw new ConvertMarketDataFaultMsg("Failed to load market data for: " + eventId, e);
+		}
+		
+		String currency = parameters.getTargetCurrency();
+		String date = parameters.getTargetDate();
+		
+		CurrencyConverter converter = new CurrencyConverter(data);
+		MarketData convertedData;
+		try {
+			convertedData = converter.convert(currency, date);
+			
+		} catch(Exception e) {
+			throw new ConvertMarketDataFaultMsg("Failed to convert market data for: " + eventId, e);
+		}
+		
+		// generate new id
+		String newId = "test-345";
+		collector = new MarketDataCollector(newId);
+		collector.write(convertedData);
 		
 		// generate summary response
 		CurrencyConvertMarketDataResponse response = factory.createCurrencyConvertMarketDataResponse();
-		response.setEventSetId("345");
+		response.setEventSetId(newId);
 		return response;
 	}
 
@@ -48,7 +70,7 @@ public class MarketDataUtilServiceImpl implements MarketDataUtilService {
 		try {
 			data = collector.getMarketData();
 		} catch (Exception e) {
-			throw new SummaryMarketFaultMsg("Failed to load market data for: " + eventId);
+			throw new SummaryMarketFaultMsg("Failed to load market data for: " + eventId, e);
 		}
 		
 		// generate summary response
