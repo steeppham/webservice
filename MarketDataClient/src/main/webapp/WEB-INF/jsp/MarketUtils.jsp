@@ -8,7 +8,7 @@
         rel="stylesheet"  type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title>TopDownSimpleService Client Application</title>
+<title>MarketDataUtilsService Client</title>
 </head>
 <body>
 <div class="row">
@@ -16,7 +16,7 @@
 		<h1>Market Utils</h1>
 		<div class = "row">
 		   <div  class="col-sm-6">
-			<div class="panel panel-success">
+			<div class="panel panel-warning">
 			   <div class="panel-heading">
 			    <h3 class="panel-title">List of Current Market Data</h3>
 			  </div>
@@ -86,7 +86,7 @@
 		
 	   <div class = "row">
 		   <div  class="col-sm-8">
-			<div class="panel panel-success">
+			<div class="panel panel-warning">
 			   <div class="panel-heading">
 			    <h3 class="panel-title">Currency Convert Market Data</h3>
 			  </div>
@@ -138,6 +138,52 @@
 			  </div>
 			  <div class="panel-body">
 			    <b><c:out value="${convertResponse}"></c:out></b>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+	   <div class = "row">
+		   <div  class="col-sm-8">
+			<div class="panel panel-info">
+			   <div class="panel-heading">
+			    <h3 class="panel-title">Visualize Market Data</h3>
+			  </div>
+			  <div class="panel-body">
+			  
+			     <form  action="visualiseMarketData" action="GET"> <!-- this invokes the method with mapping marketDataSummary -->
+			        
+			        <div class="row">
+				        <div class="form-group">
+					      <label for="eventSetID">Event Set Id:</label>
+					      <br>
+					      <div class="col-sm-2">
+					      	<input type="text" class="form-control" id="eventSetID" name="eventSetID">
+					      </div>
+					    </div>
+				    </div>
+				  
+	     
+					<br>
+					<button type="submit" class="btn btn-warning">Visualize Market Data</button>
+			     </form>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		<div class = "row">
+		   <div  class="col-sm-6">
+			<div class="panel panel-info">
+			   <div class="panel-heading">
+			    <h3 class="panel-title">Visualize Market Data Response</h3>
+			  </div>
+			  <div class="panel-body">
+			   <a href="<c:out value="${visualizeResponse}"></c:out>">View the File Here</a> 
+			   <br>
+			   or<br>
+			   Download from here:
+			    <b><c:out value="${visualizeResponse}"></c:out></b>
 			  </div>
 			</div>
 		  </div>

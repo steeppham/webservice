@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import au.edu.unsw.soacourse.marketdataservice.CurrencyConvertMarketData;
 import au.edu.unsw.soacourse.marketdataservice.CurrencyConvertMarketDataResponse;
+import au.edu.unsw.soacourse.marketdataservice.DownloadFile;
 import au.edu.unsw.soacourse.marketdataservice.MarketDataUtilService;
 import au.edu.unsw.soacourse.marketdataservice.SummaryMarketData;
 import au.edu.unsw.soacourse.marketdataservice.SummaryMarketDataResponse;
@@ -153,6 +154,26 @@ public class MarketServiceController {
 	 } catch(Exception e){
 		 model.addAttribute("MarketDataResponse",e.toString() );  
 		   model.addAttribute("importedMarketData",importedMarketData.getImportedMarketData()); 
+	 }
+      // View we are returning to, in this case processImportMarketData.jsp 
+      return "MarketUtils";
+   }
+   @RequestMapping("/visualiseMarketData") 
+   public String visualizeMarketData(ModelMap model,String eventSetID) throws Exception {
+      // TODO: Add the creation of a DownloadFile request type and populate it
+	  
+	  DownloadFile request = new au.edu.unsw.soacourse.marketdataservice.ObjectFactory().createDownloadFile();
+      // TODO: Call the web service 
+	 try{
+	 request.setEventSetId(eventSetID);
+     
+	 au.edu.unsw.soacourse.marketdataservice.DownloadFileResponse response = data.visualiseMarketData(request);
+      // TODO: Replace null with the results from the web service response.
+       model.addAttribute("visualizeResponse", response.getDataURL());  
+	   model.addAttribute("importedMarketData",importedMarketData.getImportedMarketData());
+	 } catch(Exception e){
+		 model.addAttribute("visualizeResponse",e.toString() );  
+		 model.addAttribute("importedMarketData",importedMarketData.getImportedMarketData()); 
 	 }
       // View we are returning to, in this case processImportMarketData.jsp 
       return "MarketUtils";

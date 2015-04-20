@@ -13,10 +13,10 @@
 <body>
 <div class="row">
    <div class="col-sm-offset-3">
-		<h1>ImportMarketData</h1>
+		<h1>TopDownSimpleService Client</h1>
 		<div class = "row">
 		   <div  class="col-sm-6">
-			<div class="panel panel-success">
+			<div class="panel panel-warning">
 			   <div class="panel-heading">
 			    <h3 class="panel-title">List of Current Market Data</h3>
 			  </div>
@@ -144,9 +144,9 @@
 		
 	   <div class = "row">
 		   <div  class="col-sm-8">
-			<div class="panel panel-success">
+			<div class="panel panel-warning">
 			   <div class="panel-heading">
-			    <h3 class="panel-title">Import Market Data</h3>
+			    <h3 class="panel-title">Download Market Data</h3>
 			  </div>
 			  <div class="panel-body">
 			     <form action="downloadFile" action="GET">
