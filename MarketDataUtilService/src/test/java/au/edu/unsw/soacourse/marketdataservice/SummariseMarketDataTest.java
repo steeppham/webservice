@@ -1,9 +1,11 @@
 package au.edu.unsw.soacourse.marketdataservice;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class SummariseMarketDataTest {
 
 	ObjectFactory factory = new ObjectFactory();

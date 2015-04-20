@@ -2,11 +2,13 @@ package au.edu.unsw.soacourse.marketdataservice;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
-
+@Ignore
 public class ConvertMarketDataTest {
 
 	ObjectFactory factory = new ObjectFactory();
+	
 	
 	@Test
 	public void convertAUDtoUSD() throws Exception {

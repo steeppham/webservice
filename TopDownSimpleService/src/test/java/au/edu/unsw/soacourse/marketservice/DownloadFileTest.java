@@ -2,8 +2,9 @@ package au.edu.unsw.soacourse.marketservice;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
-
+@Ignore
 public class DownloadFileTest {
 
 	ObjectFactory factory = new ObjectFactory();

@@ -53,11 +53,11 @@
 							<wsdlOptions>
 								<wsdlOption>
 									<!-- Referring to the end point of service deployed -->
-									<wsdl>http://localhost:8080/TopDownSimpleService/TopDownSimpleService?wsdl</wsdl>
+									<wsdl>${basedir}/src/main/resources/wsdl/TopDownSimpleService.wsdl</wsdl>
 								</wsdlOption>
 								<wsdlOption>
 									<!-- Referring to the end point of service deployed -->
-									<wsdl>http://localhost:8080/MarketDataUtilService/MarketDataUtilService?wsdl</wsdl>
+									<wsdl>${basedir}/src/main/resources/wsdl/MarketDataUtilService.wsdl</wsdl>
 								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
