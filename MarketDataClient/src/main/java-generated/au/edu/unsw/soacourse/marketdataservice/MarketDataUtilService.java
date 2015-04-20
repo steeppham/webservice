@@ -34,7 +34,7 @@ public interface MarketDataUtilService {
 
     @WebResult(name = "downloadFileResponse", targetNamespace = "http://marketdataservice.soacourse.unsw.edu.au", partName = "parameters")
     @WebMethod(action = "http://marketdataservice.soacourse.unsw.edu.au/visualiseMarketData")
-    public DownloadFileResponse visualiseMarketData(
+    public au.edu.unsw.soacourse.marketdataservice.DownloadFileResponse visualiseMarketData(
         @WebParam(partName = "parameters", name = "downloadFile", targetNamespace = "http://marketdataservice.soacourse.unsw.edu.au")
         DownloadFile parameters
     ) throws VisualiseMarketDataFaultMsg;

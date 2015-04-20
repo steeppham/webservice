@@ -161,8 +161,8 @@ public class MarketServiceController {
    @RequestMapping("/visualiseMarketData") 
    public String visualizeMarketData(ModelMap model,String eventSetID) throws Exception {
       // TODO: Add the creation of a DownloadFile request type and populate it
-	  
-	  DownloadFile request = new au.edu.unsw.soacourse.marketdataservice.ObjectFactory().createDownloadFile();
+	   au.edu.unsw.soacourse.marketdataservice.DownloadFile request = new  au.edu.unsw.soacourse.marketdataservice.ObjectFactory().createDownloadFile();
+	
       // TODO: Call the web service 
 	 try{
 	 request.setEventSetId(eventSetID);
