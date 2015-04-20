@@ -52,16 +52,16 @@
 			        <input type="hidden" name="action" value="invokeImportMarket"/>
 			        <div class="row">
 				        <div class="form-group">
-					      <label for="sec">Stock Code:</label>
+					      <label for="sec">Stock Code:   Eg.BHP</label>
 					      <br>
 					      <div class="col-sm-2">
-					      	<input type="text" class="form-control" id="sec" name="sec">
+					      	<input type="text" class="form-control" id="sec" name="sec"> 
 					      </div>
 					    </div>
 				    </div>
 				    <div class="row">
 					    <div class="form-group">
-					      <label for="startDate">Start Date:</label>
+					      <label for="startDate">Start Date:    Eg.jan 1,2010</label>
 					      <br>
 					     <div class="col-sm-2">
 						       <select class="form-control" id="startMonth" name="startMonth">
@@ -78,7 +78,7 @@
 							    <option value="11">nov</option>
 							    <option value="12">dec</option>
 
-							  </select>
+							  </select> 
 						  </div>
 						  <div class="col-sm-2">
 						     <input type="text" class="form-control" id="startDay" name="startDay">
@@ -92,7 +92,7 @@
 					
 					<div class="row">
 					    <div class="form-group">
-					      <label for="startDate">End Date:</label>
+					      <label for="startDate">End Date:   Eg.jan 1,2010</label>
 					      <br>
 					     <div class="col-sm-2">
 						       <select class="form-control" id="endMonth" name="endMonth">
@@ -109,7 +109,7 @@
 							    <option value="11">nov</option>
 							    <option value="12">dec</option>
 
-							  </select>
+							  </select> 
 						  </div>
 						  <div class="col-sm-2">
 						     <input type="text" class="form-control" id="endDay" name="endDay">
@@ -178,7 +178,7 @@
 			    <h3 class="panel-title">Download Market Data Response</h3>
 			  </div>
 			  <div class="panel-body">
-			    <b><c:out value="${downloadLink}"></c:out></b>
+			    This is your download Link:<b><c:out value="${downloadLink}"></c:out></b>
 			  </div>
 			</div>
 		  </div>
