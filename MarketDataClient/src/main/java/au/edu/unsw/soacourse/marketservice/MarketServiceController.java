@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import au.edu.unsw.soacourse.marketdataservice.CurrencyConvertMarketData;
 import au.edu.unsw.soacourse.marketdataservice.CurrencyConvertMarketDataResponse;
-import au.edu.unsw.soacourse.marketdataservice.DownloadFile;
 import au.edu.unsw.soacourse.marketdataservice.MarketDataUtilService;
 import au.edu.unsw.soacourse.marketdataservice.SummaryMarketData;
 import au.edu.unsw.soacourse.marketdataservice.SummaryMarketDataResponse;
