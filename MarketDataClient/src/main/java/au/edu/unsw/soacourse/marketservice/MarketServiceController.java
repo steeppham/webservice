@@ -1,16 +1,15 @@
 package au.edu.unsw.soacourse.marketservice;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import au.edu.unsw.soacourse.marketdataservice.*;
-
-
+import au.edu.unsw.soacourse.marketdataservice.CurrencyConvertMarketData;
+import au.edu.unsw.soacourse.marketdataservice.CurrencyConvertMarketDataResponse;
+import au.edu.unsw.soacourse.marketdataservice.MarketDataUtilService;
+import au.edu.unsw.soacourse.marketdataservice.SummaryMarketData;
+import au.edu.unsw.soacourse.marketdataservice.SummaryMarketDataResponse;
 
 @Controller
 public class MarketServiceController {
@@ -18,6 +17,8 @@ public class MarketServiceController {
    // TODO: Add the TopDownSimpleService interface as a member of the controller
 	@Autowired
    private TopDownSimpleService simple; //this is instantiated by jaxws:client id=simple in dispatcher-servlet.xml
+   
+	@Autowired
    private MarketDataUtilService data; 
    Input importedMarketData = new Input(); //this should be holding the name of all the current files downloaded, but keeps refreshing
    
