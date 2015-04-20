@@ -104,7 +104,7 @@
 					    </div>
 					    <br>
 					     <div class="form-group">
-					      <label for="eventSetID">Yyour Target Currency:</label>
+					      <label for="eventSetID">Your Target Currency:</label>
 					      <br>
 					      <div class="col-sm-2">
 					      	<input type="text" class="form-control" id="currency" name="currency">
